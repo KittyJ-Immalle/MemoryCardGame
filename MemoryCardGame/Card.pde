@@ -1,7 +1,7 @@
 class Card {
   private int x, y, cardHeight, cardWidth;
-  private color[] colors = {color(255,0,0), color(0,255,0), color(0,0,255), color(100, 100, 100), color(255)};
   private boolean hidden = false;
+  public color col;
   public int value;
 
   public Card(int x, int y, int cardHeight, int cardWidth, int value) {
@@ -18,8 +18,8 @@ class Card {
   
   public void flipAround() {
     if (mouseOverCard()) {
-      fill(colors[floor(value/2)]);
-    rect(x, y, cardWidth, cardHeight);
+      fill(col);
+      rect(x, y, cardWidth, cardHeight);
     }
   }
   

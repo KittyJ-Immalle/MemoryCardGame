@@ -13,10 +13,10 @@ void draw() {
 
 }
 
-void mouseClicked() {
+void mousePressed() {
   for (int i = 0; i < c.cards.length; i++) {
     if (c.cards[i].mouseOverCard() == true) {
-      
+      c.cards[i].flipAround();
     }
   }
 }

@@ -1,4 +1,5 @@
 class CardList {
+  private color[] colors = {color(255,0,0), color(0,255,0), color(0,0,255), color(100, 100, 100), color(255)};
   int x = 350, y = 10, cardHeight = 250, cardWidth = 170;
   int amount = 0;
   public Card[] cards;
@@ -20,6 +21,8 @@ class CardList {
         y += 270;
       }
       cards[i] = new Card(x, y, cardHeight, cardWidth, values[i]);
+      //set color
+      cards[i].col = colors[cards[i].value];
       x += 190;
     }
   }

@@ -8,9 +8,12 @@ class CardList {
 
   public CardList(int amount) {
     this.amount = amount;
+    generateValues();
+    shuffleValues();
+    generateCards();
   }
   
-  private void GenerateValues() {
+  private void generateValues() {
     values = new int[amount];
     for (int i = 0; i < amount/2; i++) {
       values[2*i] = i;
@@ -18,7 +21,7 @@ class CardList {
     }
   }
   
-  private void ShuffleValues() {
+  private void shuffleValues() {
     for (int i=0; i<values.length; i++) {
     int r = int(random(values.length));
     int t = values[i];
@@ -27,7 +30,7 @@ class CardList {
   }
   }
 
-  private void GenerateCards() {
+  private void generateCards() {
     for (int i = 0; i < amount; i++) {
       if (i % 5 == 0 && i != 0) {
         x = 350;
@@ -45,7 +48,7 @@ class CardList {
     cardIndex = new int[2];
     int cardIndexCounter = 0;
     for (int i = 0; i < cards.size(); i++) {
-      if (cards.get(i).faceUp == true) {
+      if (cards.get(i).status == CardStatus.FLIPPED) {
         cardIndex[cardIndexCounter] = i;
         cardIndexCounter++;
         amountFacingUp++;
@@ -62,28 +65,32 @@ class CardList {
   
   public void compareCards(int[] cardIndex) {
     if (cards.get(cardIndex[0]).value == cards.get(cardIndex[1]).value) {
-      delay(500);
-      cards.get(cardIndex[0]).removeCard();
-      cards.get(cardIndex[1]).removeCard();
-      cards.get(cardIndex[0]).faceUp = false;
-      cards.get(cardIndex[1]).faceUp = false;
-      cards.get(cardIndex[0]).hidden = true;
-      cards.get(cardIndex[1]).hidden = true;
+      cards.get(cardIndex[0]).status = CardStatus.HIDDEN;
+      cards.get(cardIndex[1]).status = CardStatus.HIDDEN;
       cards.remove(cardIndex[0]);
-      cards.remove(cardIndex[1]);
+      cards.remove(cardIndex[1] - 1);
     } else {
-      cards.get(cardIndex[0]).drawCard();
-      cards.get(cardIndex[1]).drawCard();
-      cards.get(cardIndex[0]).faceUp = false;
-      cards.get(cardIndex[1]).faceUp = false;
+      cards.get(cardIndex[0]).status = CardStatus.VISIBLE;
+      cards.get(cardIndex[1]).status = CardStatus.VISIBLE;
+    }
+  }
+  
+  public void drawAllCards() {
+    for (int i = 0; i < cards.size(); i++) {
+      cards.get(i).drawCard();
+    }
+  }
+  
+  public void updateCardValues() {
+    for(int i = 0; i < cards.size(); i++) {
+      if (cards.get(i).mouseOverCard()) {
+        cards.get(i).status = CardStatus.FLIPPED;
+      }
     }
   }
 
   public void Show() {
     fill(0);
-    GenerateValues();
-    ShuffleValues();
-    GenerateCards();
     for (int i = 0; i < amount; i++) {
       cards.get(i).drawCard();
     }

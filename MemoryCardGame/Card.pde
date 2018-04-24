@@ -1,7 +1,7 @@
 class Card {
   private int x, y, cardHeight, cardWidth;
-  private boolean hidden = false;
-  public boolean faceUp = false;
+  private CardStatus status = CardStatus.VISIBLE;
+  
   public color col;
   public int value;
 
@@ -14,27 +14,28 @@ class Card {
   }
 
   public void drawCard() {
-    fill(0);
-    stroke(0);
-    rect(x, y, cardWidth, cardHeight);
-  }
-  
-  public void flipAround() {
-     fill(col);
-     stroke(0);
-     rect(x, y, cardWidth, cardHeight);
-     faceUp = true;
-  }
-  
-  public void removeCard() {
-    fill(210);
-    stroke(210);
-    rect(x, y, cardWidth, cardHeight);
-    hidden = true;
+    println("drawing");
+    switch(status) {
+      case VISIBLE:
+        fill(0);
+        stroke(0);
+        rect(x, y, cardWidth, cardHeight);
+        break;
+      case HIDDEN:
+        fill(210);
+        stroke(210);
+        rect(x, y, cardWidth, cardHeight);
+        break;
+      case FLIPPED:
+        fill(col);
+        stroke(0);
+        rect(x, y, cardWidth, cardHeight);
+        break;
+    }
   }
   
   boolean mouseOverCard() {
-    return(!hidden && mouseX >= x && mouseX < x+cardWidth && mouseY >= y && mouseY < y+cardHeight);
+    return(status != CardStatus.HIDDEN && mouseX >= x && mouseX < x+cardWidth && mouseY >= y && mouseY < y+cardHeight);
   }
 
 }

@@ -1,0 +1,4 @@
+enum GameStatus {
+  ONE_CARD_SELECTED,
+  TWO_CARDS_SELECTED
+}

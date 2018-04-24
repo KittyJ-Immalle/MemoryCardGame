@@ -18,9 +18,10 @@ void draw() {
 }
 
 void mousePressed() {
-  for (int i = 0; i < c.cards.length; i++) {
-    if (c.cards[i].mouseOverCard() == true) {
-      c.cards[i].flipAround();
+  for (int i = 0; i < c.cards.size(); i++) {
+    if (c.cards.get(i).mouseOverCard() == true) {
+      c.cards.get(i).flipAround();
+      c.checkCardsFacingUp();
     }
   }
 }

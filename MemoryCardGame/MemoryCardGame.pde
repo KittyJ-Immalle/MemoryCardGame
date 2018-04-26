@@ -38,25 +38,30 @@ void draw() {
   line(0,60,300,60);
   line(300,0,300,height);
   text("Cards selected: " + cardsSelected, 10, 150);
+  text("Cards left: " + cardList.cards.size(), 10, 300);
   
   cardList.drawAllCards();
 }
 
 void mousePressed() {
-  switch(gameStatus) {
-    case NO_CARDS_SELECTED:
-      cardList.flipCurrentCard();
-      gameStatus = GameStatus.ONE_CARD_SELECTED;
-      cardsSelected = 1;
-    break;
-    case ONE_CARD_SELECTED:
-      cardList.flipCurrentCard();
-      gameStatus = GameStatus.TWO_CARDS_SELECTED;
-      cardsSelected = 2;
-      // geen break hier
-    case TWO_CARDS_SELECTED:
-      gameStatus = GameStatus.DELAY;
-     break;
+  for (int i = 0; i < cardList.cards.size(); i++) {
+    if (cardList.cards.get(i).mouseOverCard() && cardList.cards.get(i).status != CardStatus.FLIPPED) {
+        switch(gameStatus) {
+      case NO_CARDS_SELECTED:
+        cardList.flipCurrentCard();
+        gameStatus = GameStatus.ONE_CARD_SELECTED;
+        cardsSelected = 1;
+      break;
+      case ONE_CARD_SELECTED:
+        cardList.flipCurrentCard();
+        gameStatus = GameStatus.TWO_CARDS_SELECTED;
+        cardsSelected = 2;
+        // geen break hier
+      case TWO_CARDS_SELECTED:
+        gameStatus = GameStatus.DELAY;
+       break;
+      }
+    }
   }
   
 }

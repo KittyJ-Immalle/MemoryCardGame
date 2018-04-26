@@ -21,11 +21,6 @@ class Card {
         stroke(0);
         rect(x, y, cardWidth, cardHeight);
         break;
-      case HIDDEN:
-        fill(210);
-        stroke(210);
-        rect(x, y, cardWidth, cardHeight);
-        break;
       case FLIPPED:
         fill(col);
         stroke(0);
@@ -35,7 +30,7 @@ class Card {
   }
   
   boolean mouseOverCard() {
-    return(status != CardStatus.HIDDEN && mouseX >= x && mouseX < x+cardWidth && mouseY >= y && mouseY < y+cardHeight);
+    return(mouseX >= x && mouseX < x+cardWidth && mouseY >= y && mouseY < y+cardHeight);
   }
 
 }

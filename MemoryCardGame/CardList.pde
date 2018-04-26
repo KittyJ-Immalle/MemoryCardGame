@@ -43,7 +43,7 @@ class CardList {
     }
   }
   
-  public void checkCardsFacingUp() {
+  public void removeCardsIfEqual() {
     int amountFacingUp = 0;
     cardIndex = new int[2];
     int cardIndexCounter = 0;
@@ -65,8 +65,6 @@ class CardList {
   
   public void compareCards(int[] cardIndex) {
     if (cards.get(cardIndex[0]).value == cards.get(cardIndex[1]).value) {
-      cards.get(cardIndex[0]).status = CardStatus.HIDDEN;
-      cards.get(cardIndex[1]).status = CardStatus.HIDDEN;
       cards.remove(cardIndex[0]);
       cards.remove(cardIndex[1] - 1);
     } else {
@@ -81,18 +79,11 @@ class CardList {
     }
   }
   
-  public void updateCardValues() {
+  public void flipCurrentCard() {
     for(int i = 0; i < cards.size(); i++) {
       if (cards.get(i).mouseOverCard()) {
         cards.get(i).status = CardStatus.FLIPPED;
       }
-    }
-  }
-
-  public void Show() {
-    fill(0);
-    for (int i = 0; i < amount; i++) {
-      cards.get(i).drawCard();
     }
   }
 }

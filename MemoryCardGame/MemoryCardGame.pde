@@ -1,13 +1,35 @@
-public GameStatus gameStatus = GameStatus.ONE_CARD_SELECTED;
+public GameStatus gameStatus = GameStatus.NO_CARDS_SELECTED;
 private CardList cardList;
 private int cardsSelected;
 
+final int delay = 30; // aantal frames 
+int delayCounter = 0;
+
 void setup() {
   size(1300,550);
+  frameRate(60);
   cardList = new CardList(10);
 }
 
 void draw() {
+  
+  switch(gameStatus) {
+     case NO_CARDS_SELECTED:
+       cardsSelected = 0;
+       break;
+     case DELAY:
+      delayCounter++; //<>//
+      if(delayCounter >= delay) {
+        delayCounter = 0;
+        
+        // KAARTEN VERWIJDEREN
+        cardList.removeCardsIfEqual();
+        
+        gameStatus = GameStatus.NO_CARDS_SELECTED;
+      }
+     break;
+  }
+  
   background(205);
   textSize(28);
   fill(0);
@@ -21,17 +43,20 @@ void draw() {
 }
 
 void mousePressed() {
-  cardList.updateCardValues();
   switch(gameStatus) {
-    case ONE_CARD_SELECTED:
-      gameStatus = GameStatus.TWO_CARDS_SELECTED;
+    case NO_CARDS_SELECTED:
+      cardList.flipCurrentCard();
+      gameStatus = GameStatus.ONE_CARD_SELECTED;
       cardsSelected = 1;
     break;
-    case TWO_CARDS_SELECTED:
-      gameStatus = GameStatus.ONE_CARD_SELECTED;
+    case ONE_CARD_SELECTED:
+      cardList.flipCurrentCard();
+      gameStatus = GameStatus.TWO_CARDS_SELECTED;
       cardsSelected = 2;
-      cardList.checkCardsFacingUp();
-      cardsSelected = 0;
+      // geen break hier
+    case TWO_CARDS_SELECTED:
+      gameStatus = GameStatus.DELAY;
      break;
   }
+  
 }

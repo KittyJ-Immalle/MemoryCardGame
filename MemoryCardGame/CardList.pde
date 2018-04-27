@@ -1,6 +1,7 @@
 class CardList {
-  private color[] colors = {color(255,0,0), color(0,255,0), color(0,0,255), color(100, 100, 100), color(255)};
-  int x = 350, y = 10, cardHeight = 250, cardWidth = 170;
+  private color[] colors = {color(255,0,0), color(0,255,0), color(0,0,255), color(100, 100, 100), color(255), color(150, 150, 40), color(165, 104, 183), color(108, 199, 102), color(250, 250, 99), color(250, 190, 99)};
+  int x = 350, y = 10;
+  int cardHeight = 200, cardWidth = 120;
   int amount = 0;
   int[] cardIndex;
   private int[] values;
@@ -8,6 +9,8 @@ class CardList {
 
   public CardList(int amount) {
     this.amount = amount;
+    backOfCard = loadImage("BackOfCard.png");
+    backOfCard.resize(cardWidth, cardHeight);
     generateValues();
     shuffleValues();
     generateCards();
@@ -32,14 +35,14 @@ class CardList {
 
   private void generateCards() {
     for (int i = 0; i < amount; i++) {
-      if (i % 5 == 0 && i != 0) {
+      if (i % 7 == 0 && i != 0) {
         x = 350;
         y += 270;
       }
       cards.add(new Card(x, y, cardHeight, cardWidth, values[i]));
       //set color
       cards.get(i).col = colors[cards.get(i).value];
-      x += 190;
+      x += 150;
     }
   }
   

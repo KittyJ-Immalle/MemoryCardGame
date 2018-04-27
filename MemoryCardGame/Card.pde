@@ -1,7 +1,6 @@
 class Card {
   private int x, y, cardHeight, cardWidth;
   private CardStatus status = CardStatus.VISIBLE;
-  
   public color col;
   public int value;
 
@@ -17,9 +16,7 @@ class Card {
     println("drawing");
     switch(status) {
       case VISIBLE:
-        fill(0);
-        stroke(0);
-        rect(x, y, cardWidth, cardHeight);
+        image(backOfCard, x, y);
         break;
       case FLIPPED:
         fill(col);

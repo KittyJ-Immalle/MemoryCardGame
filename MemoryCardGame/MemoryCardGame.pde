@@ -1,14 +1,15 @@
 public GameStatus gameStatus = GameStatus.NO_CARDS_SELECTED;
 private CardList cardList;
 private int cardsSelected;
+public PImage backOfCard;
 
 final int delay = 30; // aantal frames 
 int delayCounter = 0;
 
 void setup() {
-  size(1300,550);
+  size(1500,850);
   frameRate(60);
-  cardList = new CardList(10);
+  cardList = new CardList(20);
 }
 
 void draw() {

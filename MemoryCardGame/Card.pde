@@ -13,7 +13,6 @@ class Card {
   }
 
   public void drawCard() {
-    println("drawing");
     switch(status) {
       case VISIBLE:
         image(backOfCard, x, y);

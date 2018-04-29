@@ -47,22 +47,19 @@ class CardList {
   }
   
   public void removeCardsIfEqual() {
-    int amountFacingUp = 0;
     cardIndex = new int[2];
     int cardIndexCounter = 0;
     for (int i = 0; i < cards.size(); i++) {
       if (cards.get(i).status == CardStatus.FLIPPED) {
         cardIndex[cardIndexCounter] = i;
         cardIndexCounter++;
-        amountFacingUp++;
       }
       if (cardIndexCounter >= 2) {
         cardIndexCounter = 0;
       }
     }
-    if (amountFacingUp == 2) {
+    if (cardsSelected == 2) { //<>//
       compareCards(cardIndex);
-      amountFacingUp = 0;
     }
   }
   

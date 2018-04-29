@@ -1,6 +1,6 @@
-public GameStatus gameStatus = GameStatus.START;
+public GameState gameState = GameState.NO_CARDS_SELECTED;
 private CardList cardList;
-private int cardsSelected;
+public int cardsSelected;
 public PImage backOfCard;
 
 final int delay = 30; // aantal frames 
@@ -14,21 +14,22 @@ void setup() {
 
 void draw() {
   
-  drawStartScreen();
+  //drawStartScreen();
+  drawGameScreen();
   
-  switch(gameStatus) {
+  switch(gameState) {
      case NO_CARDS_SELECTED:
        cardsSelected = 0;
        break;
      case DELAY:
-      delayCounter++; //<>//
+      delayCounter++;
       if(delayCounter >= delay) {
         delayCounter = 0;
         
         // KAARTEN VERWIJDEREN
         cardList.removeCardsIfEqual();
         
-        gameStatus = GameStatus.NO_CARDS_SELECTED;
+        gameState = GameState.NO_CARDS_SELECTED;
       }
      break;
   }
@@ -37,20 +38,20 @@ void draw() {
 void mousePressed() {
   for (int i = 0; i < cardList.cards.size(); i++) {
     if (cardList.cards.get(i).mouseOverCard() && cardList.cards.get(i).status != CardStatus.FLIPPED) {
-        switch(gameStatus) {
+        switch(gameState) {
       case NO_CARDS_SELECTED:
         cardList.flipCurrentCard();
-        gameStatus = GameStatus.ONE_CARD_SELECTED;
+        gameState = GameState.ONE_CARD_SELECTED;
         cardsSelected = 1;
       break;
       case ONE_CARD_SELECTED:
         cardList.flipCurrentCard();
-        gameStatus = GameStatus.TWO_CARDS_SELECTED;
+        gameState = GameState.TWO_CARDS_SELECTED;
         cardsSelected = 2;
         // geen break hier
       case TWO_CARDS_SELECTED:
-        gameStatus = GameStatus.DELAY;
-       break;
+        gameState = GameState.DELAY;
+        break;
       }
     }
   }

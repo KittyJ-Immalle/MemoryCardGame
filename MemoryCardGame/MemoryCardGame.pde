@@ -1,6 +1,7 @@
 public GameState gameState = GameState.NO_CARDS_SELECTED;
 private CardList cardList;
 public int cardsSelected;
+int[] cardIndex;
 static public PImage backOfCard;
 static public PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10;
 
@@ -28,7 +29,7 @@ void draw() {
         delayCounter = 0;
         
         // KAARTEN VERWIJDEREN
-        cardList.removeCardsIfEqual();
+        removeCardsIfEqual(cardList);
         
         gameState = GameState.NO_CARDS_SELECTED;
       }
@@ -57,6 +58,33 @@ void mousePressed() {
     }
   }
 }
+
+private void removeCardsIfEqual(CardList list) {
+    cardIndex = new int[2];
+    int cardIndexCounter = 0;
+    for (int i = 0; i < list.cards.size(); i++) {
+      if (list.cards.get(i).status == CardStatus.FLIPPED) {
+        cardIndex[cardIndexCounter] = i;
+        cardIndexCounter++;
+      }
+      if (cardIndexCounter >= 2) {
+        cardIndexCounter = 0;
+      }
+    }
+    if (cardsSelected == 2) {
+      compareCards(list, cardIndex);
+    }
+  }
+  
+private void compareCards(CardList list, int[] cardIndex) {
+    if (list.cards.get(cardIndex[0]).value == list.cards.get(cardIndex[1]).value) {
+      list.cards.remove(cardIndex[0]);
+      list.cards.remove(cardIndex[1] - 1);
+    } else {
+      list.cards.get(cardIndex[0]).status = CardStatus.VISIBLE;
+      list.cards.get(cardIndex[1]).status = CardStatus.VISIBLE;
+    }
+  }
 
 void drawStartScreen() {
   background(205);

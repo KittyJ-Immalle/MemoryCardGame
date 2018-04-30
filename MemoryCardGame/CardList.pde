@@ -3,7 +3,6 @@ class CardList {
   int x = 350, y = 10;
   int cardHeight = 200, cardWidth = 120;
   int amount = 0;
-  int[] cardIndex;
   private int[] values;
   public ArrayList<Card> cards = new ArrayList<Card>();
 
@@ -43,35 +42,8 @@ class CardList {
       }
       cards.add(new Card(x, y, cardHeight, cardWidth, values[i]));
       //set color
-      cards.get(i).front = frontOfCards[cards.get(i).value]; //<>//
+      cards.get(i).front = frontOfCards[cards.get(i).value];
       x += 150;
-    }
-  }
-  
-  public void removeCardsIfEqual() {
-    cardIndex = new int[2];
-    int cardIndexCounter = 0;
-    for (int i = 0; i < cards.size(); i++) {
-      if (cards.get(i).status == CardStatus.FLIPPED) {
-        cardIndex[cardIndexCounter] = i;
-        cardIndexCounter++;
-      }
-      if (cardIndexCounter >= 2) {
-        cardIndexCounter = 0;
-      }
-    }
-    if (cardsSelected == 2) { //<>//
-      compareCards(cardIndex);
-    }
-  }
-  
-  public void compareCards(int[] cardIndex) {
-    if (cards.get(cardIndex[0]).value == cards.get(cardIndex[1]).value) {
-      cards.remove(cardIndex[0]);
-      cards.remove(cardIndex[1] - 1);
-    } else {
-      cards.get(cardIndex[0]).status = CardStatus.VISIBLE;
-      cards.get(cardIndex[1]).status = CardStatus.VISIBLE;
     }
   }
   

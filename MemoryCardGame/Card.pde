@@ -1,7 +1,7 @@
 class Card {
   private int x, y, cardHeight, cardWidth;
   private CardStatus status = CardStatus.VISIBLE;
-  public color col;
+  public PImage front;
   public int value;
 
   public Card(int x, int y, int cardHeight, int cardWidth, int value) {
@@ -18,9 +18,7 @@ class Card {
         image(backOfCard, x, y);
         break;
       case FLIPPED:
-        fill(col);
-        stroke(0);
-        rect(x, y, cardWidth, cardHeight);
+        image(front, x, y);
         break;
     }
   }

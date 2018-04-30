@@ -2,6 +2,7 @@ public GameState gameState = GameState.NO_CARDS_SELECTED;
 private CardList cardList;
 public int cardsSelected;
 public PImage backOfCard;
+public PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10;
 
 final int delay = 30; // aantal frames 
 int delayCounter = 0;

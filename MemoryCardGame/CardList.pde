@@ -1,5 +1,4 @@
 class CardList {
-  //private color[] colors = {color(255,0,0), color(0,255,0), color(0,0,255), color(100, 100, 100), color(255), color(150, 150, 40), color(165, 104, 183), color(108, 199, 102), color(250, 250, 99), color(250, 190, 99)};
   private PImage[] frontOfCards;
   int x = 350, y = 10;
   int cardHeight = 200, cardWidth = 120;

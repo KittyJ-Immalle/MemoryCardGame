@@ -22,7 +22,7 @@ void draw() {
   switch(gameState) {
      case NO_CARDS_SELECTED:
        cardsSelected = 0;
-       break;
+     break;
      case DELAY:
       delayCounter++;
       if(delayCounter >= delay) {
@@ -30,7 +30,6 @@ void draw() {
         
         // KAARTEN VERWIJDEREN
         removeCardsIfEqual(cardList);
-        
         gameState = GameState.NO_CARDS_SELECTED;
       }
      break;
@@ -40,22 +39,33 @@ void draw() {
 void mousePressed() {
   for (int i = 0; i < cardList.cards.size(); i++) {
     if (cardList.cards.get(i).mouseOverCard() && cardList.cards.get(i).status != CardStatus.FLIPPED) {
-        switch(gameState) {
-      case NO_CARDS_SELECTED:
-        cardList.flipCurrentCard();
-        gameState = GameState.ONE_CARD_SELECTED;
-        cardsSelected = 1;
-      break;
-      case ONE_CARD_SELECTED:
-        cardList.flipCurrentCard();
-        gameState = GameState.TWO_CARDS_SELECTED;
-        cardsSelected = 2;
-        // geen break hier
-      case TWO_CARDS_SELECTED:
-        gameState = GameState.DELAY;
+      updateGameState();
+      switch(gameState) {
+        case ONE_CARD_SELECTED:
+          cardList.flipCurrentCard();
+          cardsSelected = 1;
+        break;
+        case TWO_CARDS_SELECTED:
+          cardList.flipCurrentCard();
+          cardsSelected = 2;
+          updateGameState();
         break;
       }
     }
+  }
+}
+
+private void updateGameState() {
+  switch(gameState) {
+    case NO_CARDS_SELECTED:
+      gameState = GameState.ONE_CARD_SELECTED;
+    break;
+    case ONE_CARD_SELECTED:
+      gameState = GameState.TWO_CARDS_SELECTED;
+    break;
+    case TWO_CARDS_SELECTED:
+      gameState = GameState.DELAY;
+    break;
   }
 }
 

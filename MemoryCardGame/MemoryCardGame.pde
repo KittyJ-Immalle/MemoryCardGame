@@ -2,6 +2,7 @@ public GameState gameState = GameState.NO_CARDS_SELECTED;
 private CardList cardList;
 public int cardsSelected;
 int[] cardIndex;
+private int card1Index, card2Index;
 static public PImage backOfCard;
 static public PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10;
 
@@ -64,7 +65,7 @@ private void removeCardsIfEqual(CardList list) {
     int cardIndexCounter = 0;
     for (int i = 0; i < list.cards.size(); i++) {
       if (list.cards.get(i).status == CardStatus.FLIPPED) {
-        cardIndex[cardIndexCounter] = i;
+        if (cardIndexCounter == 0) { card1Index = i; } else { card2Index = i; }
         cardIndexCounter++;
       }
       if (cardIndexCounter >= 2) {
@@ -77,12 +78,12 @@ private void removeCardsIfEqual(CardList list) {
   }
   
 private void compareCards(CardList list, int[] cardIndex) {
-    if (list.cards.get(cardIndex[0]).value == list.cards.get(cardIndex[1]).value) {
-      list.cards.remove(cardIndex[0]);
-      list.cards.remove(cardIndex[1] - 1);
+    if (list.cards.get(card1Index).value == list.cards.get(card2Index).value) {
+      list.cards.remove(card1Index);
+      list.cards.remove(card2Index - 1);
     } else {
-      list.cards.get(cardIndex[0]).status = CardStatus.VISIBLE;
-      list.cards.get(cardIndex[1]).status = CardStatus.VISIBLE;
+      list.cards.get(card1Index).status = CardStatus.VISIBLE;
+      list.cards.get(card2Index).status = CardStatus.VISIBLE;
     }
   }
 

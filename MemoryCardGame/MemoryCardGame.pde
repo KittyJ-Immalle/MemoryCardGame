@@ -1,17 +1,21 @@
 public GameState gameState = GameState.START;
+private Difficulty easy = new Difficulty("easy");
+private Difficulty medium = new Difficulty("medium");
+private Difficulty hard = new Difficulty("hard");
+public GameDifficulty difficulty;
 private CardList cardList;
 public int cardsSelected;
 private int card1Index, card2Index;
 static public PImage backOfCard;
-static public PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10;
+static public PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20;
 
 final int delay = 30; // aantal frames 
 int delayCounter = 0;
 
 void setup() {
-  size(1500,850);
+  size(1800,1000);
   frameRate(60);
-  cardList = new CardList(20);
+  
 }
 
 void draw() {
@@ -39,16 +43,22 @@ void draw() {
 }
 
 void mousePressed() {
-  for (int i = 0; i < cardList.cards.size(); i++) {
-    if (cardList.cards.get(i).mouseOverCard() && cardList.cards.get(i).status != CardStatus.FLIPPED) {
-      updateGameState();
-      switch(gameState) {
-        case ONE_CARD_SELECTED:
-          handleOneCardState();
-        break;
-        case TWO_CARDS_SELECTED:
-          handleTwoCardState();
-        break;
+  if (gameState == GameState.START) {
+    if (easy.mouseOverPanel() || medium.mouseOverPanel() || hard.mouseOverPanel()) {
+      handleStartState();
+    }
+  } else {
+    for (int i = 0; i < cardList.cards.size(); i++) {
+      if (cardList.cards.get(i).mouseOverCard() && cardList.cards.get(i).status != CardStatus.FLIPPED) {
+        updateGameState();
+        switch(gameState) {
+          case ONE_CARD_SELECTED:
+            handleOneCardState();
+          break;
+          case TWO_CARDS_SELECTED:
+            handleTwoCardState();
+          break;
+        }
       }
     }
   }
@@ -68,6 +78,19 @@ private void updateGameState() {
   }
 }
 
+private void handleStartState() {
+  if (easy.mouseOverPanel()) {
+    handleEasy();
+  }
+  if (medium.mouseOverPanel()) {
+    handleMedium();
+  }
+  if (hard.mouseOverPanel()) {
+    handleHard();
+  }
+  gameState = GameState.NO_CARDS_SELECTED;
+}
+
 private void handleOneCardState() {
   cardList.flipCurrentCard();
   cardsSelected = 1;
@@ -77,6 +100,21 @@ private void handleTwoCardState() {
   cardList.flipCurrentCard();
   cardsSelected = 2;
   updateGameState();
+}
+
+private void handleEasy() {
+  difficulty = GameDifficulty.EASY;
+  cardList = new CardList(16, 8, 150, 270);
+}
+
+private void handleMedium() {
+  difficulty = GameDifficulty.MEDIUM;
+  cardList = new CardList(20, 8, 150, 270);
+}
+
+private void handleHard() {
+  difficulty = GameDifficulty.HARD;
+  cardList = new CardList(36, 9, 150, 250);
 }
 
 private void removeCardsIfEqual(CardList list) {
@@ -105,20 +143,19 @@ private void compareCards(CardList list) {
     }
   }
 
-void drawStartScreen() {
+private void drawStartScreen() {
   background(205);
-  Difficulty diff = new Difficulty();
   fill(0);
   textSize(50);
   text("Memory Card Game", width/2 - textWidth("Memory Card Game")/2, 60);
   textSize(30);
   text("Select your difficulty", width/2 - textWidth("Select your difficulty")/2, 150);
-  diff.easyPanel();
-  diff.mediumPanel();
-  diff.hardPanel();
+  easyPanel();
+  mediumPanel();
+  hardPanel();
 }
 
-void drawGameScreen() {
+private void drawGameScreen() {
   background(205);
   textSize(28);
   fill(0);
@@ -130,4 +167,31 @@ void drawGameScreen() {
   text("Cards left: " + cardList.cards.size(), 10, 300);
   
   cardList.drawAllCards();
+}
+
+private void easyPanel() {
+  stroke(0);
+  fill(205);
+  rect(250, 250, 400, 500);
+  fill(0);
+  textSize(50);
+  text("Easy", 395, 450);
+}
+  
+private void mediumPanel() {
+  stroke(0);
+  fill(205);
+  rect(700, 250, 400, 500);
+  fill(0);
+  textSize(50);
+  text("Medium", width/2 - 100, 450);
+}
+  
+private void hardPanel() {
+  stroke(0);
+  fill(205);
+  rect(1150, 250, 400, 500);
+  fill(0);
+  textSize(50);
+  text("Hard", 1290, 450);
 }

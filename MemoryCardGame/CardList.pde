@@ -6,15 +6,15 @@ class CardList {
   private int[] values;
   public ArrayList<Card> cards = new ArrayList<Card>();
 
-  public CardList(int amount) {
+  public CardList(int amount, int amountOnRow, int xSpaceBetweenCards, int ySpaceBetweenCards) {
     this.amount = amount;
     
     loadAllImages();
-    frontOfCards = new PImage[]{card1, card2, card3, card4, card5, card6, card7, card8, card9, card10};
+    frontOfCards = new PImage[]{card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20};
     
     generateValues();
     shuffleValues();
-    generateCards();
+    generateCards(amountOnRow, xSpaceBetweenCards, ySpaceBetweenCards);
   }
   
   private void generateValues() {
@@ -34,16 +34,16 @@ class CardList {
   }
   }
 
-  private void generateCards() {
+  private void generateCards(int amountOnRow, int xSpaceBetweenCards, int ySpaceBetweenCards) {
     for (int i = 0; i < amount; i++) {
-      if (i % 7 == 0 && i != 0) {
+      if (i % amountOnRow == 0 && i != 0) {
         x = 350;
-        y += 270;
+        y += ySpaceBetweenCards;
       }
       cards.add(new Card(x, y, cardHeight, cardWidth, values[i]));
       //set color
       cards.get(i).front = frontOfCards[cards.get(i).value];
-      x += 150;
+      x += xSpaceBetweenCards;
     }
   }
   
@@ -84,5 +84,25 @@ class CardList {
     card9.resize(cardWidth, cardHeight);
     card10 = loadImage("./Images/Card10.png");
     card10.resize(cardWidth, cardHeight);
+    card11 = loadImage("./Images/Card11.png");
+    card11.resize(cardWidth, cardHeight);
+    card12 = loadImage("./Images/Card12.png");
+    card12.resize(cardWidth, cardHeight);
+    card13 = loadImage("./Images/Card13.png");
+    card13.resize(cardWidth, cardHeight);
+    card14 = loadImage("./Images/Card14.png");
+    card14.resize(cardWidth, cardHeight);
+    card15 = loadImage("./Images/Card15.png");
+    card15.resize(cardWidth, cardHeight);
+    card16 = loadImage("./Images/Card16.png");
+    card16.resize(cardWidth, cardHeight);
+    card17 = loadImage("./Images/Card16.png");
+    card17.resize(cardWidth, cardHeight);
+    card18 = loadImage("./Images/Card16.png");
+    card18.resize(cardWidth, cardHeight);
+    card19 = loadImage("./Images/Card16.png");
+    card19.resize(cardWidth, cardHeight);
+    card20 = loadImage("./Images/Card16.png");
+    card20.resize(cardWidth, cardHeight);
   }
 }

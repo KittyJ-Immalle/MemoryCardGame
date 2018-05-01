@@ -1,7 +1,6 @@
 public GameState gameState = GameState.NO_CARDS_SELECTED;
 private CardList cardList;
 public int cardsSelected;
-int[] cardIndex;
 private int card1Index, card2Index;
 static public PImage backOfCard;
 static public PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10;
@@ -61,7 +60,6 @@ void mousePressed() {
 }
 
 private void removeCardsIfEqual(CardList list) {
-    cardIndex = new int[2];
     int cardIndexCounter = 0;
     for (int i = 0; i < list.cards.size(); i++) {
       if (list.cards.get(i).status == CardStatus.FLIPPED) {
@@ -73,11 +71,11 @@ private void removeCardsIfEqual(CardList list) {
       }
     }
     if (cardsSelected == 2) {
-      compareCards(list, cardIndex);
+      compareCards(list);
     }
   }
   
-private void compareCards(CardList list, int[] cardIndex) {
+private void compareCards(CardList list) {
     if (list.cards.get(card1Index).value == list.cards.get(card2Index).value) {
       list.cards.remove(card1Index);
       list.cards.remove(card2Index - 1);

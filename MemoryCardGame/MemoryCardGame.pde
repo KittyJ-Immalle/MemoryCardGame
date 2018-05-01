@@ -42,13 +42,10 @@ void mousePressed() {
       updateGameState();
       switch(gameState) {
         case ONE_CARD_SELECTED:
-          cardList.flipCurrentCard();
-          cardsSelected = 1;
+          handleOneCardState();
         break;
         case TWO_CARDS_SELECTED:
-          cardList.flipCurrentCard();
-          cardsSelected = 2;
-          updateGameState();
+          handleTwoCardState();
         break;
       }
     }
@@ -67,6 +64,17 @@ private void updateGameState() {
       gameState = GameState.DELAY;
     break;
   }
+}
+
+private void handleOneCardState() {
+  cardList.flipCurrentCard();
+  cardsSelected = 1;
+}
+
+private void handleTwoCardState() {
+  cardList.flipCurrentCard();
+  cardsSelected = 2;
+  updateGameState();
 }
 
 private void removeCardsIfEqual(CardList list) {

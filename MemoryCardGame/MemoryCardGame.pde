@@ -165,6 +165,13 @@ private void drawGameScreen() {
   line(300,0,300,height);
   text("Cards selected: " + cardsSelected, 10, 150);
   text("Cards left: " + cardList.cards.size(), 10, 300);
+  if (cardList.cards.size() == 0) {
+    textSize(100);
+    text("Congratulations!", 650, 300);
+    textSize(50);
+    text("You won! :D", 900, 400);
+  }
+  
   
   cardList.drawAllCards();
 }

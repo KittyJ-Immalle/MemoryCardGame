@@ -1,3 +1,9 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
+private final Timer timer = new Timer();
+private boolean hasFinished = true;
+private int timerCounter;
 public GameState gameState = GameState.START;
 private Difficulty easy = new Difficulty("easy");
 private Difficulty medium = new Difficulty("medium");
@@ -19,10 +25,18 @@ void setup() {
 }
 
 void draw() {
+  //draw playing screens
   if (gameState == GameState.START) {
     drawStartScreen();
-  } else {
+  } else if (gameState != GameState.GAME_OVER) {
     drawGameScreen();
+    
+  }
+  
+  //check for win
+  if (gameState != GameState.START && gameState != GameState.GAME_OVER && cardList.cards.size() == 0) {
+    gameState = GameState.WIN;
+    timerCounter = 0;
   }
   
   switch(gameState) {
@@ -38,6 +52,13 @@ void draw() {
         removeCardsIfEqual(cardList);
         gameState = GameState.NO_CARDS_SELECTED;
       }
+     break;
+     //draw ending screens
+     case WIN:
+       drawWinningScreen();
+     break;
+     case GAME_OVER:
+       drawGameOverScreen();
      break;
   }
 }
@@ -105,16 +126,19 @@ private void handleTwoCardState() {
 private void handleEasy() {
   difficulty = GameDifficulty.EASY;
   cardList = new CardList(16, 8, 150, 270);
+  startTimer(60);
 }
 
 private void handleMedium() {
   difficulty = GameDifficulty.MEDIUM;
   cardList = new CardList(20, 8, 150, 270);
+  startTimer(60);
 }
 
 private void handleHard() {
   difficulty = GameDifficulty.HARD;
   cardList = new CardList(36, 9, 150, 250);
+  startTimer(120);
 }
 
 private void removeCardsIfEqual(CardList list) {
@@ -142,6 +166,34 @@ private void compareCards(CardList list) {
       list.cards.get(card2Index).status = CardStatus.VISIBLE;
     }
   }
+  
+private void startTimer(final float waitTime) {
+  if (hasFinished) {
+    timerCounter = (int)waitTime;
+    createScheduleTimer(waitTime); 
+    }
+}
+  
+private void createScheduleTimer(final float sec) {
+  hasFinished = false;
+  
+  timer.schedule(new TimerTask() {
+    public void run() {
+      if (timerCounter != 0) {
+        timerCounter--;
+      }
+    }
+  }, 0, 1000);
+ 
+  timer.schedule(new TimerTask() {
+    public void run() {
+      gameState = GameState.GAME_OVER;
+      hasFinished = true;
+      cardList.cards.clear();
+    }
+  }
+  , (long) (sec*1e3));
+}
 
 private void drawStartScreen() {
   background(205);
@@ -165,15 +217,23 @@ private void drawGameScreen() {
   line(300,0,300,height);
   text("Cards selected: " + cardsSelected, 10, 150);
   text("Cards left: " + cardList.cards.size(), 10, 300);
-  if (cardList.cards.size() == 0) {
-    textSize(100);
-    text("Congratulations!", 650, 300);
-    textSize(50);
-    text("You won! :D", 900, 400);
-  }
-  
-  
+  text("Time left: " + timerCounter, 10, 400);
   cardList.drawAllCards();
+}
+
+private void drawWinningScreen() {
+  textSize(100);
+  text("Congratulations!", 650, 300);
+  textSize(50);
+  text("You won! :D", 900, 400);
+}
+
+private void drawGameOverScreen() {
+  background(205);
+  textSize(100);
+  text("Game Over :(", 650, 300);
+  textSize(50);
+  text("Restart the game to try again", 600, 400);
 }
 
 private void easyPanel() {

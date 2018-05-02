@@ -96,13 +96,13 @@ class CardList {
     card15.resize(cardWidth, cardHeight);
     card16 = loadImage("./Images/Card16.png");
     card16.resize(cardWidth, cardHeight);
-    card17 = loadImage("./Images/Card16.png");
+    card17 = loadImage("./Images/Card17.png");
     card17.resize(cardWidth, cardHeight);
-    card18 = loadImage("./Images/Card16.png");
+    card18 = loadImage("./Images/Card18.png");
     card18.resize(cardWidth, cardHeight);
-    card19 = loadImage("./Images/Card16.png");
+    card19 = loadImage("./Images/Card19.png");
     card19.resize(cardWidth, cardHeight);
-    card20 = loadImage("./Images/Card16.png");
+    card20 = loadImage("./Images/Card20.png");
     card20.resize(cardWidth, cardHeight);
   }
 }

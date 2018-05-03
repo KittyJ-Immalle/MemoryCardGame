@@ -32,7 +32,6 @@ void draw() {
     drawStartScreen();
   } else {
     drawGameScreen();
-    
   }
   
   //check for win
@@ -132,7 +131,7 @@ private void handleEasy() {
   difficulty = GameDifficulty.EASY;
   currentDifficulty = "Easy";
   cardList = new CardList(16, 8, 150, 270);
-  startTimer(0);
+  startTimer(60);
 }
 
 private void handleMedium() {
@@ -243,7 +242,11 @@ private void drawWinningScreen() {
 }
 
 private void drawGameOverScreen() {
-  background(205);
+  fill(205);
+  stroke(205);
+  rect(305, 0, 10000, height);
+  fill(0);
+  stroke(0);
   textSize(100);
   text("Game Over :(", 730, 300);
   textSize(30);

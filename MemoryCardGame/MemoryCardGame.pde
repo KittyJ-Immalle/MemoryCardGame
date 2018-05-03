@@ -5,15 +5,14 @@ private final Timer timer = new Timer();
 private boolean hasFinished = true;
 private int timerCounter;
 public GameState gameState = GameState.START;
-private Difficulty easy = new Difficulty("easy");
-private Difficulty medium = new Difficulty("medium");
-private Difficulty hard = new Difficulty("hard");
+private Button easy = new Button("easy", 250, 250, 400, 500);
+private Button medium = new Button("medium", 700, 250, 400, 500);
+private Button hard = new Button("hard", 1150, 250, 400, 500);
 public GameDifficulty difficulty;
 private CardList cardList;
 public int cardsSelected;
 private int card1Index, card2Index;
 static public PImage backOfCard;
-static public PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20;
 
 final int delay = 30; // aantal frames 
 int delayCounter = 0;
@@ -202,9 +201,9 @@ private void drawStartScreen() {
   text("Memory Card Game", width/2 - textWidth("Memory Card Game")/2, 60);
   textSize(30);
   text("Select your difficulty", width/2 - textWidth("Select your difficulty")/2, 150);
-  easyPanel();
-  mediumPanel();
-  hardPanel();
+  easy.draw();
+  medium.draw();
+  hard.draw();
 }
 
 private void drawGameScreen() {
@@ -236,29 +235,6 @@ private void drawGameOverScreen() {
   text("Restart the game to try again", 600, 400);
 }
 
-private void easyPanel() {
-  stroke(0);
-  fill(205);
-  rect(250, 250, 400, 500);
-  fill(0);
-  textSize(50);
-  text("Easy", 395, 450);
-}
+
+
   
-private void mediumPanel() {
-  stroke(0);
-  fill(205);
-  rect(700, 250, 400, 500);
-  fill(0);
-  textSize(50);
-  text("Medium", width/2 - 100, 450);
-}
-  
-private void hardPanel() {
-  stroke(0);
-  fill(205);
-  rect(1150, 250, 400, 500);
-  fill(0);
-  textSize(50);
-  text("Hard", 1290, 450);
-}

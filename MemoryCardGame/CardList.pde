@@ -10,7 +10,6 @@ class CardList {
     this.amount = amount;
     
     loadAllImages();
-    frontOfCards = new PImage[]{card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20};
     
     generateValues();
     shuffleValues();
@@ -62,6 +61,8 @@ class CardList {
   }
   
   private void loadAllImages() {
+    PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20;
+    
     backOfCard = loadImage("./Images/BackOfCard.png");
     backOfCard.resize(cardWidth, cardHeight);
     card1 = loadImage("./Images/Card1.png");
@@ -104,5 +105,7 @@ class CardList {
     card19.resize(cardWidth, cardHeight);
     card20 = loadImage("./Images/Card20.png");
     card20.resize(cardWidth, cardHeight);
+    
+    frontOfCards = new PImage[]{card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20};
   }
 }

@@ -8,9 +8,12 @@ public GameState gameState = GameState.START;
 private Button easy = new Button("easy", 250, 250, 400, 500);
 private Button medium = new Button("medium", 700, 250, 400, 500);
 private Button hard = new Button("hard", 1150, 250, 400, 500);
+private Button restart = new Button("Restart", 700, 550, 300, 100);
 public GameDifficulty difficulty;
+private String currentDifficulty;
 private CardList cardList;
 public int cardsSelected;
+private int attemptCounter;
 private int card1Index, card2Index;
 static public PImage backOfCard;
 
@@ -67,6 +70,8 @@ void mousePressed() {
     if (easy.mouseOverPanel() || medium.mouseOverPanel() || hard.mouseOverPanel()) {
       handleStartState();
     }
+  } else if (restart.mouseOverPanel()){
+    restartGame();
   } else {
     for (int i = 0; i < cardList.cards.size(); i++) {
       if (cardList.cards.get(i).mouseOverCard() && cardList.cards.get(i).status != CardStatus.FLIPPED) {
@@ -117,6 +122,7 @@ private void handleOneCardState() {
 }
 
 private void handleTwoCardState() {
+  attemptCounter++;
   cardList.flipCurrentCard();
   cardsSelected = 2;
   updateGameState();
@@ -124,18 +130,21 @@ private void handleTwoCardState() {
 
 private void handleEasy() {
   difficulty = GameDifficulty.EASY;
+  currentDifficulty = "Easy";
   cardList = new CardList(16, 8, 150, 270);
   startTimer(60);
 }
 
 private void handleMedium() {
   difficulty = GameDifficulty.MEDIUM;
+  currentDifficulty = "Medium";
   cardList = new CardList(20, 8, 150, 270);
   startTimer(60);
 }
 
 private void handleHard() {
   difficulty = GameDifficulty.HARD;
+  currentDifficulty = "Hard";
   cardList = new CardList(36, 9, 150, 250);
   startTimer(120);
 }
@@ -188,10 +197,13 @@ private void createScheduleTimer(final float sec) {
     public void run() {
       gameState = GameState.GAME_OVER;
       hasFinished = true;
-      cardList.cards.clear();
     }
   }
   , (long) (sec*1e3));
+}
+
+private void restartGame() {
+  gameState = GameState.START;
 }
 
 private void drawStartScreen() {
@@ -214,9 +226,11 @@ private void drawGameScreen() {
   strokeWeight(3);
   line(0,60,300,60);
   line(300,0,300,height);
-  text("Cards selected: " + cardsSelected, 10, 150);
+  text("Difficulty: " + currentDifficulty, 10, 100);
+  text("Cards selected: " + cardsSelected, 10, 200);
   text("Cards left: " + cardList.cards.size(), 10, 300);
-  text("Time left: " + timerCounter, 10, 400);
+  text("Attempts: " + attemptCounter, 10, 400);
+  text("Time left: " + timerCounter, 10, 500);
   cardList.drawAllCards();
 }
 
@@ -225,14 +239,17 @@ private void drawWinningScreen() {
   text("Congratulations!", 650, 300);
   textSize(50);
   text("You won! :D", 900, 400);
+  restart.draw();
 }
 
 private void drawGameOverScreen() {
   background(205);
   textSize(100);
-  text("Game Over :(", 650, 300);
-  textSize(50);
-  text("Restart the game to try again", 600, 400);
+  text("Game Over :(", 530, 300);
+  textSize(30);
+  text("Number of attempts: " + attemptCounter, 650, 450);
+  text("Cards left: " + cardList.cards.size(), 700, 500);
+  restart.draw();
 }
 
 

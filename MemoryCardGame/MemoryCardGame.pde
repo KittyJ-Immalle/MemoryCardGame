@@ -8,7 +8,7 @@ public GameState gameState = GameState.START;
 private Button easy = new Button("easy", 250, 250, 400, 500);
 private Button medium = new Button("medium", 700, 250, 400, 500);
 private Button hard = new Button("hard", 1150, 250, 400, 500);
-private Button restart = new Button("Restart", 700, 550, 300, 100);
+private Button restart = new Button("Restart", 900, 550, 300, 100);
 public GameDifficulty difficulty;
 private String currentDifficulty;
 private CardList cardList;
@@ -30,7 +30,7 @@ void draw() {
   //draw playing screens
   if (gameState == GameState.START) {
     drawStartScreen();
-  } else if (gameState != GameState.GAME_OVER) {
+  } else {
     drawGameScreen();
     
   }
@@ -38,7 +38,7 @@ void draw() {
   //check for win
   if (gameState != GameState.START && gameState != GameState.GAME_OVER && cardList.cards.size() == 0) {
     gameState = GameState.WIN;
-    timerCounter = 0;
+    timer.cancel();
   }
   
   switch(gameState) {
@@ -70,7 +70,7 @@ void mousePressed() {
     if (easy.mouseOverPanel() || medium.mouseOverPanel() || hard.mouseOverPanel()) {
       handleStartState();
     }
-  } else if (restart.mouseOverPanel()){
+  } else if (restart.mouseOverPanel() && gameState == GameState.GAME_OVER || gameState == GameState.WIN){
     restartGame();
   } else {
     for (int i = 0; i < cardList.cards.size(); i++) {
@@ -132,7 +132,7 @@ private void handleEasy() {
   difficulty = GameDifficulty.EASY;
   currentDifficulty = "Easy";
   cardList = new CardList(16, 8, 150, 270);
-  startTimer(60);
+  startTimer(0);
 }
 
 private void handleMedium() {
@@ -146,7 +146,7 @@ private void handleHard() {
   difficulty = GameDifficulty.HARD;
   currentDifficulty = "Hard";
   cardList = new CardList(36, 9, 150, 250);
-  startTimer(120);
+  startTimer(150);
 }
 
 private void removeCardsIfEqual(CardList list) {
@@ -245,10 +245,10 @@ private void drawWinningScreen() {
 private void drawGameOverScreen() {
   background(205);
   textSize(100);
-  text("Game Over :(", 530, 300);
+  text("Game Over :(", 730, 300);
   textSize(30);
-  text("Number of attempts: " + attemptCounter, 650, 450);
-  text("Cards left: " + cardList.cards.size(), 700, 500);
+  text("Number of attempts: " + attemptCounter, 850, 450);
+  text("Cards left: " + cardList.cards.size(), 900, 500);
   restart.draw();
 }
 

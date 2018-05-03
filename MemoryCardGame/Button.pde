@@ -16,7 +16,7 @@ class Button {
     rect(x1, y1, x2, y2);
     fill(0);
     textSize(50);
-    text(text, x1+10, y1); // TODO : calculate textwidth and put in the middle 
+    text(text, x1 + ((x1 + x2) - x1)/2 - (textWidth(text)/2), y1 + ((y1+y2) - y1)/2 - 20);
   }
   
   boolean mouseOverPanel() {

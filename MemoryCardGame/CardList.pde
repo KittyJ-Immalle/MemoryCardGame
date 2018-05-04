@@ -42,7 +42,7 @@ class CardList {
         y += ySpaceBetweenCards;
       }
       cards.add(new Card(x, y, cardHeight, cardWidth, values[i]));
-      //set color
+      
       cards.get(i).front = frontOfCards[cards.get(i).value];
       x += xSpaceBetweenCards;
     }

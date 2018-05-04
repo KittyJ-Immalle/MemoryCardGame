@@ -9,6 +9,12 @@ private Button easyButton = new Button("Easy", 250, 250, 400, 500);
 private Button mediumButton = new Button("Medium", 700, 250, 400, 500);
 private Button hardButton = new Button("Hard", 1150, 250, 400, 500);
 private Button restartButton = new Button("Restart", 900, 550, 300, 100);
+private int easyMaxCards = 16;
+private int mediumMaxCards = 20;
+private int hardMaxCards = 36;
+private int easyTime = 60;
+private int mediumTime = 60;
+private int hardTime = 150;
 public GameDifficulty difficulty;
 private String currentDifficulty;
 private CardList cardList;
@@ -130,22 +136,22 @@ private void handleTwoCardState() {
 private void handleEasy() {
   difficulty = GameDifficulty.EASY;
   currentDifficulty = "Easy";
-  cardList = new CardList(16, 8, 150, 270);
-  startTimer(60);
+  cardList = new CardList(easyMaxCards, 8, 150, 270);
+  startTimer(easyTime);
 }
 
 private void handleMedium() {
   difficulty = GameDifficulty.MEDIUM;
   currentDifficulty = "Medium";
-  cardList = new CardList(20, 8, 150, 270);
-  startTimer(60);
+  cardList = new CardList(mediumMaxCards, 8, 150, 270);
+  startTimer(mediumTime);
 }
 
 private void handleHard() {
   difficulty = GameDifficulty.HARD;
   currentDifficulty = "Hard";
-  cardList = new CardList(36, 9, 150, 250);
-  startTimer(150);
+  cardList = new CardList(hardMaxCards, 9, 150, 250);
+  startTimer(hardTime);
 }
 
 private void removeCardsIfEqual(CardList list) {
@@ -215,6 +221,13 @@ private void drawStartScreen() {
   easyButton.draw();
   mediumButton.draw();
   hardButton.draw();
+  textSize(25);
+  text("Cards: " + easyMaxCards, 390, 570);
+  text("Time: " + easyTime, 390, 600);
+  text("Cards: " + mediumMaxCards, 850, 570);
+  text("Time: " + mediumTime, 850, 600);
+  text("Cards: " + hardMaxCards, 1290, 570);
+  text("Time: " + hardTime, 1290, 600);
 }
 
 private void drawGameScreen() {

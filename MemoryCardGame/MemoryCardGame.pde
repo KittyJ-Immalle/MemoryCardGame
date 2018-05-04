@@ -5,10 +5,10 @@ private final Timer timer = new Timer();
 private boolean hasFinished = true;
 private int timerCounter;
 public GameState gameState = GameState.START;
-private Button easy = new Button("easy", 250, 250, 400, 500);
-private Button medium = new Button("medium", 700, 250, 400, 500);
-private Button hard = new Button("hard", 1150, 250, 400, 500);
-private Button restart = new Button("Restart", 900, 550, 300, 100);
+private Button easyButton = new Button("easy", 250, 250, 400, 500);
+private Button mediumButton = new Button("medium", 700, 250, 400, 500);
+private Button hardButton = new Button("hard", 1150, 250, 400, 500);
+private Button restartButton = new Button("Restart", 900, 550, 300, 100);
 public GameDifficulty difficulty;
 private String currentDifficulty;
 private CardList cardList;
@@ -66,10 +66,10 @@ void draw() {
 
 void mousePressed() {
   if (gameState == GameState.START) {
-    if (easy.mouseOverPanel() || medium.mouseOverPanel() || hard.mouseOverPanel()) {
+    if (easyButton.mouseOver() || mediumButton.mouseOver() || hardButton.mouseOver()) {
       handleStartState();
     }
-  } else if (restart.mouseOverPanel() && gameState == GameState.GAME_OVER || gameState == GameState.WIN){
+  } else if (restartButton.mouseOver() && gameState == GameState.GAME_OVER || gameState == GameState.WIN){
     restartGame();
   } else {
     for (int i = 0; i < cardList.cards.size(); i++) {
@@ -103,13 +103,13 @@ private void updateGameState() {
 }
 
 private void handleStartState() {
-  if (easy.mouseOverPanel()) {
+  if (easyButton.mouseOver()) {
     handleEasy();
   }
-  if (medium.mouseOverPanel()) {
+  if (mediumButton.mouseOver()) {
     handleMedium();
   }
-  if (hard.mouseOverPanel()) {
+  if (hardButton.mouseOver()) {
     handleHard();
   }
   gameState = GameState.NO_CARDS_SELECTED;
@@ -212,9 +212,9 @@ private void drawStartScreen() {
   text("Memory Card Game", width/2 - textWidth("Memory Card Game")/2, 60);
   textSize(30);
   text("Select your difficulty", width/2 - textWidth("Select your difficulty")/2, 150);
-  easy.draw();
-  medium.draw();
-  hard.draw();
+  easyButton.draw();
+  mediumButton.draw();
+  hardButton.draw();
 }
 
 private void drawGameScreen() {
@@ -238,7 +238,7 @@ private void drawWinningScreen() {
   text("Congratulations!", 650, 300);
   textSize(50);
   text("You won! :D", 900, 400);
-  restart.draw();
+  restartButton.draw();
 }
 
 private void drawGameOverScreen() {
@@ -252,7 +252,7 @@ private void drawGameOverScreen() {
   textSize(30);
   text("Number of attempts: " + attemptCounter, 850, 450);
   text("Cards left: " + cardList.cards.size(), 900, 500);
-  restart.draw();
+  restartButton.draw();
 }
 
 

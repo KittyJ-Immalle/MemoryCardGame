@@ -19,7 +19,7 @@ class Button {
     text(text, x1 + ((x1 + x2) - x1)/2 - (textWidth(text)/2), y1 + ((y1+y2) - y1)/2);
   }
   
-  boolean mouseOverPanel() {
+  boolean mouseOver() {
     return(mouseX > x1 && mouseX < x1 + x2 && mouseY > y1 && mouseY < y1 + y2);
   }
 }

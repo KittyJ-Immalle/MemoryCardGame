@@ -4,8 +4,7 @@ class CardList {
   private int cardHeight = 200, cardWidth = 120;
   private int amount = 0;
   private int cardCounter;
-  private int maxCards = 20;
-  private int[] values;
+  private int maxCards = 20;  
   public ArrayList<Card> cards = new ArrayList<Card>();
 
   public CardList(int amount, int amountOnRow, int xSpaceBetweenCards, int ySpaceBetweenCards) {
@@ -13,29 +12,34 @@ class CardList {
     
     loadAllCards();
     
-    generateValues();
-    shuffleValues();
     generateCards(amountOnRow, xSpaceBetweenCards, ySpaceBetweenCards);
   }
   
-  private void generateValues() {
-    values = new int[amount];
+  private int[] generateValues() {
+    int[] values = new int[amount];
     for (int i = 0; i < amount/2; i++) {
       values[2*i] = i;
       values[2*i+1] = i;
     }
+    return values;
   }
   
-  private void shuffleValues() {
+  private int[] shuffleValues(int[] values) {    
     for (int i=0; i<values.length; i++) {
-    int r = int(random(values.length));
-    int t = values[i];
-    values[i] = values[r];
-    values[r] = t;
-  }
+      int r = int(random(values.length));
+      int t = values[i];
+      values[i] = values[r];
+      values[r] = t;
+    }
+    
+    return values;
   }
 
   private void generateCards(int amountOnRow, int xSpaceBetweenCards, int ySpaceBetweenCards) {
+    int[] values = generateValues();
+    
+    values = shuffleValues(values);
+    
     for (int i = 0; i < amount; i++) {
       if (i % amountOnRow == 0 && i != 0) {
         x = 350;

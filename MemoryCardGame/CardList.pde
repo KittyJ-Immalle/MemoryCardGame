@@ -1,15 +1,17 @@
 class CardList {
   private PImage[] frontOfCards;
-  int x = 350, y = 10;
-  int cardHeight = 200, cardWidth = 120;
-  int amount = 0;
+  private int x = 350, y = 10;
+  private int cardHeight = 200, cardWidth = 120;
+  private int amount = 0;
+  private int cardCounter;
+  private int maxCards = 20;
   private int[] values;
   public ArrayList<Card> cards = new ArrayList<Card>();
 
   public CardList(int amount, int amountOnRow, int xSpaceBetweenCards, int ySpaceBetweenCards) {
     this.amount = amount;
     
-    loadAllImages();
+    loadAllCards();
     
     generateValues();
     shuffleValues();
@@ -60,52 +62,18 @@ class CardList {
     }
   }
   
-  private void loadAllImages() {
-    PImage card1, card2 ,card3 ,card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20;
+  private void loadAllCards() {
+    frontOfCards = new PImage[maxCards];
+    PImage card;
+
+    for (int i = 0; i < maxCards; i++) {
+      cardCounter++;
+      card = loadImage("./Images/Card" + cardCounter + ".png");
+      card.resize(cardWidth, cardHeight);
+      frontOfCards[i] = card;
+    }
     
     backOfCard = loadImage("./Images/BackOfCard.png");
     backOfCard.resize(cardWidth, cardHeight);
-    card1 = loadImage("./Images/Card1.png");
-    card1.resize(cardWidth, cardHeight);
-    card2 = loadImage("./Images/Card2.png");
-    card2.resize(cardWidth, cardHeight);
-    card3 = loadImage("./Images/Card3.png");
-    card3.resize(cardWidth, cardHeight);
-    card4 = loadImage("./Images/Card4.png");
-    card4.resize(cardWidth, cardHeight);
-    card5 = loadImage("./Images/Card5.png");
-    card5.resize(cardWidth, cardHeight);
-    card6 = loadImage("./Images/Card6.png");
-    card6.resize(cardWidth, cardHeight);
-    card7 = loadImage("./Images/Card7.png");
-    card7.resize(cardWidth, cardHeight);
-    card8 = loadImage("./Images/Card8.png");
-    card8.resize(cardWidth, cardHeight);
-    card9 = loadImage("./Images/Card9.png");
-    card9.resize(cardWidth, cardHeight);
-    card10 = loadImage("./Images/Card10.png");
-    card10.resize(cardWidth, cardHeight);
-    card11 = loadImage("./Images/Card11.png");
-    card11.resize(cardWidth, cardHeight);
-    card12 = loadImage("./Images/Card12.png");
-    card12.resize(cardWidth, cardHeight);
-    card13 = loadImage("./Images/Card13.png");
-    card13.resize(cardWidth, cardHeight);
-    card14 = loadImage("./Images/Card14.png");
-    card14.resize(cardWidth, cardHeight);
-    card15 = loadImage("./Images/Card15.png");
-    card15.resize(cardWidth, cardHeight);
-    card16 = loadImage("./Images/Card16.png");
-    card16.resize(cardWidth, cardHeight);
-    card17 = loadImage("./Images/Card17.png");
-    card17.resize(cardWidth, cardHeight);
-    card18 = loadImage("./Images/Card18.png");
-    card18.resize(cardWidth, cardHeight);
-    card19 = loadImage("./Images/Card19.png");
-    card19.resize(cardWidth, cardHeight);
-    card20 = loadImage("./Images/Card20.png");
-    card20.resize(cardWidth, cardHeight);
-    
-    frontOfCards = new PImage[]{card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20};
   }
 }

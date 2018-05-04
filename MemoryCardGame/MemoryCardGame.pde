@@ -14,7 +14,7 @@ private int mediumMaxCards = 20;
 private int hardMaxCards = 36;
 private int easyTime = 60;
 private int mediumTime = 60;
-private int hardTime = 150;
+private int hardTime = 135;
 public GameDifficulty difficulty;
 private String currentDifficulty;
 private CardList cardList;
